@@ -1,17 +1,36 @@
-# flutter_chatiy_app
+# Tawasul
 
-A new Flutter project.
+A modern real-time chat app built with Flutter and
+[Stream Chat](https://getstream.io/chat/).
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Demo account sign-in
+- Live conversation list with unread badges, presence and stories
+- Chat with message grouping, day separators, delivery status, typing indicator and
+  infinite history
+- Contacts and a "new chat" sheet
+- Light, dark and system themes
+- Responsive layouts for phones and tablets (`flutter_screenutil`)
+- Smooth motion throughout (`flutter_animate`)
 
-A few resources to get you started if this is your first Flutter project:
+## Getting started
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+```bash
+cp .env.example .env      # then set STREAM_API_KEY
+flutter pub get
+flutter run
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+`.env` is git-ignored and bundled as an asset, so it must exist before you build.
+
+## Project structure
+
+The app uses feature-first MVC. See [docs/MVC_ARCHITECTURE.md](docs/MVC_ARCHITECTURE.md).
+
+## Quality
+
+```bash
+flutter analyze
+flutter test
+```
