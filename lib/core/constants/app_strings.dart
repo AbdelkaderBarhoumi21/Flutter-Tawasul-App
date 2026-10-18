@@ -73,11 +73,25 @@ abstract final class AppStrings {
   // Profile
   static const profile = 'Profile';
   static const appearance = 'Appearance';
+  static const theme = 'Theme';
   static const themeSystem = 'System';
   static const themeLight = 'Light';
   static const themeDark = 'Dark';
   static const account = 'Account';
   static const noName = 'No name';
+  static const editProfile = 'Edit';
+  static const qrCode = 'QR code';
+  static const share = 'Share';
+  static const settings = 'Settings';
+  static const settingsNotifications = 'Notifications';
+  static const settingsNotificationsSubtitle = 'Messages, groups and calls';
+  static const settingsPrivacy = 'Privacy & security';
+  static const settingsPrivacySubtitle = 'Blocked users, last seen';
+  static const settingsStorage = 'Chats & storage';
+  static const settingsStorageSubtitle = 'Backups and media downloads';
+  static const settingsHelp = 'Help center';
+  static const settingsHelpSubtitle = 'FAQ and contact us';
+  static const signOutSubtitle = 'You can sign back in anytime';
 
   // Errors
   static const errorTitle = 'Something went wrong';

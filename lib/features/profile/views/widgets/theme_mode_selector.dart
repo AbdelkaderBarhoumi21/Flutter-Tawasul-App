@@ -9,7 +9,7 @@ import 'package:tawasul/core/extensions/context_extensions.dart';
 import 'package:tawasul/core/theme/theme_controller.dart';
 import 'package:tawasul/core/widgets/pressable_scale.dart';
 
-/// Segmented control for System / Light / Dark appearance.
+/// Compact pill switch for System / Light / Dark with a sliding thumb.
 class ThemeModeSelector extends StatelessWidget {
   const ThemeModeSelector({super.key});
 
@@ -23,53 +23,74 @@ class ThemeModeSelector extends StatelessWidget {
     (ThemeMode.dark, CupertinoIcons.moon_fill, AppStrings.themeDark),
   ];
 
+  static const _segmentSize = 34.0;
+
+  /// Human-readable name of [mode], e.g. for a subtitle.
+  static String labelOf(ThemeMode mode) =>
+      _options.firstWhere((option) => option.$1 == mode).$3;
+
   @override
   Widget build(BuildContext context) {
     final controller = ThemeScope.of(context);
     final colors = context.colors;
+    final selectedIndex = _options.indexWhere(
+      (option) => option.$1 == controller.value,
+    );
+    final segment = _segmentSize.r;
+
     return Container(
-      padding: EdgeInsets.all(AppSpacing.xs.r),
+      padding: EdgeInsets.all(3.r),
       decoration: BoxDecoration(
         color: colors.surfaceMuted,
-        borderRadius: BorderRadius.circular(AppRadius.lg.r),
+        borderRadius: BorderRadius.circular(AppRadius.pill),
       ),
-      child: Row(
-        children: [
-          for (final (mode, icon, label) in _options)
-            Expanded(
-              child: PressableScale(
-                onTap: () => controller.value = mode,
-                semanticLabel: label,
-                child: AnimatedContainer(
-                  duration: AppDurations.normal,
-                  curve: Curves.easeOutCubic,
-                  padding: EdgeInsets.symmetric(vertical: AppSpacing.md.h),
-                  decoration: BoxDecoration(
-                    color: controller.value == mode
-                        ? colors.surface
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(AppRadius.md.r),
-                    boxShadow: controller.value == mode
-                        ? [BoxShadow(color: colors.shadow, blurRadius: 10.r)]
-                        : null,
-                  ),
-                  child: Column(
-                    children: [
-                      Icon(
-                        icon,
-                        size: AppIconSize.md.r,
-                        color: controller.value == mode
-                            ? AppColors.primary
-                            : colors.textTertiary,
-                      ),
-                      SizedBox(height: AppSpacing.xs.h),
-                      Text(label, style: context.textTheme.labelMedium),
-                    ],
-                  ),
+      child: SizedBox(
+        width: segment * _options.length,
+        height: segment,
+        child: Stack(
+          children: [
+            AnimatedAlign(
+              alignment: Alignment(-1.0 + selectedIndex, 0),
+              duration: AppDurations.normal,
+              curve: Curves.easeOutCubic,
+              child: Container(
+                width: segment,
+                height: segment,
+                decoration: BoxDecoration(
+                  gradient: AppGradients.primary,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.primary.withValues(alpha: 0.35),
+                      blurRadius: 8.r,
+                      offset: Offset(0, 2.r),
+                    ),
+                  ],
                 ),
               ),
             ),
-        ],
+            Row(
+              children: [
+                for (final (index, (mode, icon, label)) in _options.indexed)
+                  PressableScale(
+                    onTap: () => controller.value = mode,
+                    pressedScale: 0.85,
+                    semanticLabel: label,
+                    child: SizedBox.square(
+                      dimension: segment,
+                      child: Icon(
+                        icon,
+                        size: AppIconSize.sm.r,
+                        color: index == selectedIndex
+                            ? AppColors.white
+                            : colors.textTertiary,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
