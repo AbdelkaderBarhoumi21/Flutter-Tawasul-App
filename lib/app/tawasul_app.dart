@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 import 'package:tawasul/core/constants/app_sizes.dart';
 import 'package:tawasul/core/constants/app_strings.dart';
+import 'package:tawasul/core/extensions/context_extensions.dart';
 import 'package:tawasul/core/routing/app_router.dart';
 import 'package:tawasul/core/routing/app_routes.dart';
 import 'package:tawasul/core/theme/app_theme.dart';
@@ -72,8 +74,14 @@ class _TawasulAppState extends State<TawasulApp> with WidgetsBindingObserver {
           themeMode: themeMode,
           initialRoute: AppRoutes.selectUser,
           onGenerateRoute: AppRouter.onGenerateRoute,
-          builder: (context, child) =>
-              StreamChatCore(client: widget.client, child: child!),
+          // Theme-aware status bar for every screen; screens with colored
+          // headers override it locally.
+          builder: (context, child) => AnnotatedRegion<SystemUiOverlayStyle>(
+            value: context.isDarkMode
+                ? SystemUiOverlayStyle.light
+                : SystemUiOverlayStyle.dark,
+            child: StreamChatCore(client: widget.client, child: child!),
+          ),
         ),
       ),
     ),
