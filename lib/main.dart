@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chatiy_app/core/app/app.dart';
-import 'package:flutter_chatiy_app/core/app/my_app.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
+import 'package:tawasul/app/tawasul_app.dart';
+import 'package:tawasul/core/config/app_config.dart';
 
-void main() {
-  final client = StreamChatClient(streamKey);
-  runApp(MyApp(client: client));
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AppConfig.load();
+
+  final client = StreamChatClient(AppConfig.streamApiKey);
+  runApp(TawasulApp(client: client));
 }
