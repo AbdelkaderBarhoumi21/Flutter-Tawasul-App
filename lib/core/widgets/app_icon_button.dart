@@ -13,6 +13,7 @@ class AppIconButton extends StatelessWidget {
     this.size = AppDimensions.iconButton,
     this.filled = true,
     this.color,
+    this.backgroundColor,
     super.key,
   });
 
@@ -22,6 +23,9 @@ class AppIconButton extends StatelessWidget {
   final double size;
   final bool filled;
   final Color? color;
+
+  /// Overrides the default muted fill (e.g. a glass effect on gradients).
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +40,7 @@ class AppIconButton extends StatelessWidget {
           width: size.r,
           height: size.r,
           decoration: BoxDecoration(
-            color: filled ? colors.surfaceMuted : null,
+            color: filled ? backgroundColor ?? colors.surfaceMuted : null,
             borderRadius: BorderRadius.circular(AppRadius.md.r),
           ),
           child: Icon(
