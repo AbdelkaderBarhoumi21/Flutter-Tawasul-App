@@ -1,5 +1,5 @@
-# Analysis configuration for MediLink
-# Updated with comprehensive linting rules following Flutter/Dart best practices
+# Analysis configuration for Tawasul
+# Comprehensive linting rules following Flutter/Dart best practices
 include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude:
@@ -8,7 +8,8 @@ analyzer:
   - "**/*.config.dart"
   - build/**
   - .dart_tool/**
-  - packages/intl_phone_number_input/
+  - android/**
+  - ios/**
 
   errors:
     # Treat certain warnings as errors for stricter code quality
@@ -19,9 +20,9 @@ analyzer:
     unused_import: warning
     unused_local_variable: warning
 
-  strong-mode:
-    implicit-casts: false
-    implicit-dynamic: false
+  language:
+    strict-casts: true
+    strict-raw-types: true
 
 linter:
   rules:
@@ -174,13 +175,3 @@ linter:
     use_test_throws_matchers: true
     valid_regexps: true
     void_checks: true
-
-# Custom Lint Configuration - Modern replacement for dart_code_metrics
-custom_lint:
-  rules:
-  # Enable BLoC-specific linting
-  - avoid-bloc-public-fields
-  - avoid-bloc-public-methods
-  - avoid-cubits
-  - avoid-duplicate-bloc-event-handlers
-  - avoid-empty-build-when
