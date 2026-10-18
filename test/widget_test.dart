@@ -7,6 +7,7 @@ import 'package:tawasul/core/extensions/string_extensions.dart';
 import 'package:tawasul/core/theme/app_theme.dart';
 import 'package:tawasul/core/widgets/app_avatar.dart';
 import 'package:tawasul/core/widgets/app_empty_state.dart';
+import 'package:tawasul/core/widgets/fade_indexed_stack.dart';
 
 Widget _wrap(Widget child) => ScreenUtilInit(
   designSize: const Size(390, 844),
@@ -57,6 +58,33 @@ void main() {
   ) async {
     await tester.pumpWidget(_wrap(const AppAvatar(name: 'Deven Joshi')));
     expect(find.text('DJ'), findsOneWidget);
+  });
+
+  testWidgets('FadeIndexedStack fully hides the previous page', (tester) async {
+    Widget stack(int index) => MaterialApp(
+      home: FadeIndexedStack(
+        index: index,
+        children: const [Text('first'), Text('second')],
+      ),
+    );
+    double opacityOf(String text) => tester
+        .widget<FadeTransition>(
+          find
+              .ancestor(
+                of: find.text(text),
+                matching: find.byType(FadeTransition),
+              )
+              .first,
+        )
+        .opacity
+        .value;
+
+    await tester.pumpWidget(stack(0));
+    await tester.pumpWidget(stack(1));
+    await tester.pumpAndSettle();
+
+    expect(opacityOf('first'), 0);
+    expect(opacityOf('second'), 1);
   });
 
   testWidgets('AppEmptyState renders its title, message and action', (

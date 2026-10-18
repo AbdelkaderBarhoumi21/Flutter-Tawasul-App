@@ -51,18 +51,17 @@ class _FadeChild extends StatelessWidget {
     ignoring: !isActive,
     child: ExcludeSemantics(
       excluding: !isActive,
-      child: TickerMode(
-        enabled: isActive,
-        child: AnimatedOpacity(
-          opacity: isActive ? 1 : 0,
+      // The fade must stay outside TickerMode: a muted ticker would freeze
+      // the fade-out and leave hidden pages visible.
+      child: AnimatedOpacity(
+        opacity: isActive ? 1 : 0,
+        duration: AppDurations.normal,
+        curve: Curves.easeOut,
+        child: AnimatedSlide(
+          offset: isActive ? Offset.zero : const Offset(0, 0.015),
           duration: AppDurations.normal,
-          curve: Curves.easeOut,
-          child: AnimatedSlide(
-            offset: isActive ? Offset.zero : const Offset(0, 0.015),
-            duration: AppDurations.normal,
-            curve: Curves.easeOutCubic,
-            child: child,
-          ),
+          curve: Curves.easeOutCubic,
+          child: TickerMode(enabled: isActive, child: child),
         ),
       ),
     ),
