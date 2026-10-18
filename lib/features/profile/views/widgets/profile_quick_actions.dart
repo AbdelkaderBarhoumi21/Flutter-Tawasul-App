@@ -11,18 +11,18 @@ class ProfileQuickActions extends StatelessWidget {
   const ProfileQuickActions({super.key});
 
   static const _actions = [
-    (CupertinoIcons.pencil, AppStrings.editProfile, AppColors.primary),
-    (CupertinoIcons.qrcode, AppStrings.qrCode, AppColors.secondary),
-    (CupertinoIcons.share, AppStrings.share, AppColors.accent),
+    (CupertinoIcons.pencil, AppStrings.editProfile),
+    (CupertinoIcons.qrcode, AppStrings.qrCode),
+    (CupertinoIcons.share, AppStrings.share),
   ];
 
   @override
   Widget build(BuildContext context) => Row(
     children: [
-      for (final (index, (icon, label, color)) in _actions.indexed) ...[
+      for (final (index, (icon, label)) in _actions.indexed) ...[
         if (index > 0) SizedBox(width: AppSpacing.md.w),
         Expanded(
-          child: _QuickAction(icon: icon, label: label, color: color),
+          child: _QuickAction(icon: icon, label: label),
         ),
       ],
     ],
@@ -30,15 +30,10 @@ class ProfileQuickActions extends StatelessWidget {
 }
 
 class _QuickAction extends StatelessWidget {
-  const _QuickAction({
-    required this.icon,
-    required this.label,
-    required this.color,
-  });
+  const _QuickAction({required this.icon, required this.label});
 
   final IconData icon;
   final String label;
-  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +54,14 @@ class _QuickAction extends StatelessWidget {
               width: 40.r,
               height: 40.r,
               decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.12),
+                color: AppColors.primary.withValues(alpha: 0.12),
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, size: AppIconSize.md.r, color: color),
+              child: Icon(
+                icon,
+                size: AppIconSize.md.r,
+                color: AppColors.primary,
+              ),
             ),
             SizedBox(height: AppSpacing.sm.h),
             Text(label, style: context.textTheme.labelMedium),

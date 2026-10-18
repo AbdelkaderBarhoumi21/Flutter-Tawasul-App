@@ -96,21 +96,18 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         SettingsTile(
                           icon: CupertinoIcons.bell_fill,
-                          iconColor: AppColors.warning,
                           title: AppStrings.settingsNotifications,
                           subtitle: AppStrings.settingsNotificationsSubtitle,
                           onTap: context.showComingSoon,
                         ),
                         SettingsTile(
                           icon: CupertinoIcons.lock_fill,
-                          iconColor: AppColors.success,
                           title: AppStrings.settingsPrivacy,
                           subtitle: AppStrings.settingsPrivacySubtitle,
                           onTap: context.showComingSoon,
                         ),
                         SettingsTile(
                           icon: CupertinoIcons.folder_fill,
-                          iconColor: AppColors.secondary,
                           title: AppStrings.settingsStorage,
                           subtitle: AppStrings.settingsStorageSubtitle,
                           onTap: context.showComingSoon,

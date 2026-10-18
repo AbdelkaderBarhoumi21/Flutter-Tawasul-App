@@ -66,7 +66,6 @@ class SettingsTile extends StatelessWidget {
     required this.title,
     required this.onTap,
     this.subtitle,
-    this.iconColor = AppColors.primary,
     this.trailing,
     this.isDestructive = false,
     super.key,
@@ -76,14 +75,15 @@ class SettingsTile extends StatelessWidget {
   final String title;
   final String? subtitle;
   final VoidCallback? onTap;
-  final Color iconColor;
   final Widget? trailing;
+
+  /// Renders the row in the error color (e.g. sign out).
   final bool isDestructive;
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final accent = isDestructive ? AppColors.error : iconColor;
+    final accent = isDestructive ? AppColors.error : AppColors.primary;
     return PressableScale(
       onTap: onTap,
       pressedScale: 0.98,
