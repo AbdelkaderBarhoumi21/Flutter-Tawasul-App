@@ -22,6 +22,33 @@ indicators and a polished, animated interface. It runs on phones and tablets,
 in light and dark mode. The code uses feature-first MVC and a shared design
 system, so new features are easy to add.
 
+## Screenshots
+
+### Light
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/signin_light.png" width="240" alt="Sign in"/><br/><sub>Sign in</sub></td>
+    <td align="center"><img src="docs/screenshots/chats_light.png" width="240" alt="Chats"/><br/><sub>Chats</sub></td>
+    <td align="center"><img src="docs/screenshots/chat_light.png" width="240" alt="Conversation"/><br/><sub>Conversation</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/contacts_light.png" width="240" alt="Contacts"/><br/><sub>Contacts</sub></td>
+    <td align="center"><img src="docs/screenshots/new_chat_light.png" width="240" alt="New chat"/><br/><sub>New chat</sub></td>
+    <td align="center"><img src="docs/screenshots/profile_light.png" width="240" alt="Profile"/><br/><sub>Profile</sub></td>
+  </tr>
+</table>
+
+### Dark
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/chats_dark.png" width="240" alt="Chats (dark)"/><br/><sub>Chats</sub></td>
+    <td align="center"><img src="docs/screenshots/chat_dark.png" width="240" alt="Conversation (dark)"/><br/><sub>Conversation</sub></td>
+    <td align="center"><img src="docs/screenshots/profile_dark.png" width="240" alt="Profile (dark)"/><br/><sub>Profile</sub></td>
+  </tr>
+</table>
+
 ## Features
 
 ### Messaging
