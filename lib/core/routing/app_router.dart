@@ -1,51 +1,42 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chatiy_app/core/routing/app_route_names.dart';
-import 'package:flutter_chatiy_app/views/chat/pages/chat_screen.dart';
-import 'package:flutter_chatiy_app/views/home/pages/home_screen.dart';
-import 'package:flutter_chatiy_app/views/users/pages/profile_screen.dart';
-import 'package:flutter_chatiy_app/views/users/pages/select_user_screen.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
+import 'package:tawasul/core/constants/app_strings.dart';
+import 'package:tawasul/core/routing/app_routes.dart';
+import 'package:tawasul/core/widgets/app_empty_state.dart';
+import 'package:tawasul/features/auth/views/pages/select_user_page.dart';
+import 'package:tawasul/features/chat/views/pages/chat_page.dart';
+import 'package:tawasul/features/home/views/pages/home_page.dart';
+import 'package:tawasul/features/profile/views/pages/profile_page.dart';
 
-/// [MaterialPageRoute] is a Flutter class that creates a route with Material
-/// Design page transitions:
-/// - On Android: Slides up from bottom with fade-in
-/// - On iOS: Slides in from right (following platform conventions)
-/// - Provides back button/gesture support automatically
-/// - Handles the route's lifecycle (build, animation, disposal)
-///
-/// It wraps your screen widget and manages how it appears/disappears during
-/// navigation. The `builder` function creates the actual screen widget when
-/// the route is pushed.
-class AppRouter {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case AppRouteNames.chatScreen:
-        final channel = settings.arguments;
-        if (channel is Channel) {
-          return MaterialPageRoute(
-            builder: (_) => StreamChannel(
-              channel: channel,
-              child: ChatScreen(channel: channel),
-            ),
-          );
-        }
-        return _errorRoute('Invalid arguments for ChatScreen');
-      case AppRouteNames.selectUserScreen:
-        return MaterialPageRoute(builder: (_) => const SelectUserScreen());
-      case AppRouteNames.home:
-        return MaterialPageRoute(builder: (_) => const HomeScreen());
-      case AppRouteNames.profileScreen:
-        return MaterialPageRoute(builder: (_) => const ProfileScreen());
-
-      default:
-        return _errorRoute('Route not found: ${settings.name}');
-    }
+/// Maps [AppRoutes] to pages. Transitions come from the theme's
+/// `pageTransitionsTheme`.
+abstract final class AppRouter {
+  static Route<void> onGenerateRoute(RouteSettings settings) {
+    final page = switch ((settings.name, settings.arguments)) {
+      (AppRoutes.selectUser, _) => const SelectUserPage(),
+      (AppRoutes.home, _) => const HomePage(),
+      (AppRoutes.profile, _) => const ProfilePage(),
+      (AppRoutes.chat, final Channel channel) => StreamChannel(
+        channel: channel,
+        child: ChatPage(channel: channel),
+      ),
+      _ => const _NotFoundPage(),
+    };
+    return MaterialPageRoute<void>(settings: settings, builder: (_) => page);
   }
+}
 
-  static Route<dynamic> _errorRoute(String message) => MaterialPageRoute(
-    builder: (_) => Scaffold(
-      appBar: AppBar(title: const Text('Error')),
-      body: Center(child: Text(message)),
+class _NotFoundPage extends StatelessWidget {
+  const _NotFoundPage();
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(),
+    body: const AppEmptyState(
+      icon: CupertinoIcons.compass,
+      title: AppStrings.pageNotFound,
+      message: AppStrings.errorMessage,
     ),
   );
 }
