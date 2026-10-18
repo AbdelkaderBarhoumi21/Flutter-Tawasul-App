@@ -1,18 +1,22 @@
-name: flutter_chatiy_app
-description: "A new Flutter project."
+name: tawasul
+description: "Tawasul — a modern real-time chat app built with Flutter and Stream Chat."
 publish_to: 'none'
 
 version: 1.0.0+1
 
 environment:
   sdk: ^3.11.0
+
 dependencies:
   flutter:
     sdk: flutter
 
-  # UI & Icons
+  # UI & Design
   cupertino_icons: ^1.0.8
   google_fonts: ^6.3.3
+  flutter_screenutil: ^5.9.3
+  flutter_animate: ^4.5.2
+  cached_network_image: ^3.4.1
 
   # Firebase
   firebase_core: ^4.2.1
@@ -22,24 +26,18 @@ dependencies:
   # Chat
   stream_chat_flutter_core: ^9.23.0
 
-  # Images
-  cached_network_image: ^3.4.1
-
   # Utilities
   collection: ^1.19.1
   jiffy: ^6.4.4
   logger: ^2.6.2
-  meta: ^1.16.0
   flutter_dotenv: ^6.0.0
-
-  # Development/Testing Tools
-  faker: ^2.2.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+
 flutter:
   uses-material-design: true
   assets:
-  - .env
+    - .env
